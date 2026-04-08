@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Generator</title>
+    <script src="JsBarcode.all.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Screen 1 -->
+    <div id="input-section">
+        <h1 style="color:#007BFF;">Generate Barcode</h1>
+
+        <p>
+            Enter the value:
+            <input type="text" id="txt-input">
+            <button id="btngen">Generate</button>
+        </p>
+    </div>
+
+    <!-- Screen 2 -->
+    <div id="barcode-section" style="display:none;">
+        <h1 style="color:#007BFF;">Your Barcode</h1>
+
+        <svg id="barcode"></svg>
+
+        <br><br>
+
+        <!-- BUTTONS -->
+        <button id="downloadBtn">Download Barcode</button>
+        <button id="btnBack">Generate Another</button>
+    </div>
+
+    <script>
+        const inputSection = document.getElementById("input-section");
+        const barcodeSection = document.getElementById("barcode-section");
+
+        const generateBtn = document.getElementById("btngen");
+        const backBtn = document.getElementById("btnBack");
+        const downloadBtn = document.getElementById("downloadBtn");
+
+        generateBtn.addEventListener("click", function () {
+            let val = document.getElementById("txt-input").value;
+
+            if (val.trim() === "") {
+                alert("Please enter a value");
+                return;
+            }
+
+            JsBarcode("#barcode", val, {
+                width: 4,
+                height: 150,
+                displayValue: true,
+                fontSize: 20
+            });
+
+            inputSection.style.display = "none";
+            barcodeSection.style.display = "block";
+        });
+
+        // Download function
+        downloadBtn.addEventListener("click", function () {
+            let svg = document.getElementById("barcode");
+
+            let serializer = new XMLSerializer();
+            let source = serializer.serializeToString(svg);
+
+            let image = new Image();
+            let svgBlob = new Blob([source], { type: "image/svg+xml;charset=utf-8" });
+            let url = URL.createObjectURL(svgBlob);
+
+            image.onload = function () {
+                let canvas = document.createElement("canvas");
+                canvas.width = image.width;
+                canvas.height = image.height;
+
+                let ctx = canvas.getContext("2d");
+                ctx.drawImage(image, 0, 0);
+
+                URL.revokeObjectURL(url);
+
+                let imgURI = canvas.toDataURL("image/png");
+
+                let link = document.createElement("a");
+                link.href = imgURI;
+                link.download = "barcode.png";
+                link.click();
+            };
+
+            image.src = url;
+        });
+
+        // Back button
+        backBtn.addEventListener("click", function () {
+            document.getElementById("txt-input").value = "";
+
+            barcodeSection.style.display = "none";
+            inputSection.style.display = "block";
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Body Styling */
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #007BFF, #00C6FF);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card Container */
+#input-section,
+#barcode-section {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    width: fit-content;
+    max-width: 90vw;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+    /* Animation */
+    animation: fadeIn 0.6s ease;
+}
+
+/* Title stylings */
+h1 {
+    margin-bottom: 20px;
+    color: #007BFF;
+}
+
+/* Input Field stylings */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+}
+
+/* Buttons */
+button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #007BFF;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Button Hover Effect stylings */
+button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Button Click Effect stylings */
+button:active {
+    transform: scale(0.95);
+}
+
+/* Barcode Styling */
+#barcode {
+    margin-top: 20px;
+    animation: scaleUp 0.5s ease;
+}
+
+/* Download Button Special Style */
+#downloadBtn {
+    background: #00AEEF;
+}
+
+#downloadBtn:hover {
+    background: #008fcc;
+}
+
+/* Back Button */
+#btnBack {
+    background: #6c757d;
+}
+
+#btnBack:hover {
+    background: #545b62;
+}
+
+/* Animations stylings */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
